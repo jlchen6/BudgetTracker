@@ -1,17 +1,18 @@
+// List of files to cache so that they are available offline.
 const FILES_TO_CACHE = [
     '/',
-    'index.html',
-    'styles.css',
-    'index.js',
-    'icons/icon-192x192.png',
-    'icons/icon-512x512.png',
-    'manifest.webmanifest'
+    '/index.html',
+    '/styles.css',
+    '/index.js',
+    '/icons/icon-192x192.png',
+    '/icons/icon-512x512.png',
+    '/manifest.webmanifest'
 ];
 
 const CACHE_NAME = "static-cache-budget";
 const DATA_CACHE_NAME = "data-cache-budget";
 
-// Add IndexedDB databases
+// Add IndexedDB databases and create a new objectStore
 function createDB(){
     self.indexedDB.open("offlineBudgetChanges", 1, (upgradeDB) => {
         var budgetStore = upgradeDB.createObjectStore('budgetChanges', {

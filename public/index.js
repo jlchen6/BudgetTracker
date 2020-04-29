@@ -144,18 +144,23 @@ function sendTransaction(isAdding) {
   });
 }
 
+// Save offline transactions to IndexedDB
 function saveRecord(budgetChange){
+  // Open connection with the indexedDB database
 self.indexedDB.open("offlineBudgetChanges", 1)
 .then( (db) => {
-
+    // Create a transaction with the db, on the objectStore for budgetChanges
     var transaction = db.transaction(["budgetChanges"], "readwrite");
 
+  // Console log a successfuly transaction. 
     transaction.onsuccess = function(event){
       console.log("Successfully wrote budget change to indexedDB")
     }
 
+    // Grab the objectStore for the budgetChanges objectStore
     var budgetStore = transaction.objectStore("budgetChanges");
     
+    // Add the offline budget change to the indexedDB storage
     budgetStore.add(budgetChange);
     
   })
