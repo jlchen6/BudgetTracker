@@ -144,6 +144,23 @@ function sendTransaction(isAdding) {
   });
 }
 
+function saveRecord(budgetChange){
+self.indexedDB.open("offlineBudgetChanges", 1)
+.then( (db) => {
+
+    var transaction = db.transaction(["budgetChanges"], "readwrite");
+
+    transaction.onsuccess = function(event){
+      console.log("Successfully wrote budget change to indexedDB")
+    }
+
+    var budgetStore = transaction.objectStore("budgetChanges");
+    
+    budgetStore.add(budgetChange);
+    
+  })
+}
+
 document.querySelector("#add-btn").onclick = function() {
   sendTransaction(true);
 };
